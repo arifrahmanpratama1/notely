@@ -1,3 +1,17 @@
+# Notely
+
+This repository contains the project submission for RPL - Final Semester Exam.
+
+## Group Information
+* **Team Members:**
+  * Haiqal A. ([@Haiqal](https://github.com/Isvane))
+  * Dafa A. ([@Dafa](https://github.com/Dafa-Web-progaming))
+  * Maulana R. ([@Maulana](https://github.com/MaulanaRizky6))
+  * Arif R. ([@Arif](https://github.com/arifrahmanpratama1))
+  * Zahrah F. ([@Zahrah](https://github.com/moezaazzara))
+
+---
+
 ## Tech Stack
 
 ### Backend
@@ -57,14 +71,14 @@ The application will be available at: http://localhost:5173
 
 To avoid merge conflicts and protect the main codebase, please follow this workflow every time you work:
 
-1.  **Start your session & Sync:**
+1.  **Start your session & Sync:**<br>
     Switch to the main branch and pull the latest changes.
     ```bash
     git checkout main
     git pull origin main
     ```
 
-2.  **Create your feature branch:**
+2.  **Create your feature branch:**<br>
     Create and switch to a new branch for your specific task (use a descriptive name like `feat/login-page` or `fix/button-bug`).
     ```bash
     git checkout -b your-branch-name
@@ -72,7 +86,7 @@ To avoid merge conflicts and protect the main codebase, please follow this workf
 
 3.  **Make your changes.**
 
-4.  **Commit and Push:**
+4.  **Commit and Push:**<br>
     Once your changes are ready, stage them, commit them, and push your feature branch to the remote repository.
     ```bash
     git add .
@@ -80,5 +94,5 @@ To avoid merge conflicts and protect the main codebase, please follow this workf
     git push origin your-branch-name
     ```
 
-5.  **Merge your work:**
+5.  **Merge your work:**<br>
     Go to GitHub and open a **Pull Request (PR)** from `your-branch-name` into `main`.
