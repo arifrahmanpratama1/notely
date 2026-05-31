@@ -17,8 +17,8 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/banteng-hitam/whatever.git
-cd whatever
+git clone https://github.com/Isvane/notely.git
+cd notely
 ```
 
 ### 2. Backend Setup
@@ -29,7 +29,7 @@ The backend uses `uv` for dependency management. Ensure you have `uv` installed 
 cd backend
 
 # Run the development server
-uv run fastapi dev app/main.py
+uv run fastapi dev
 ```
 
 The API will be available at: http://127.0.0.1:8000
@@ -50,3 +50,35 @@ npm run dev
 ```
 
 The application will be available at: http://localhost:5173
+
+---
+
+## Git Workflow (Read This!)
+
+To avoid merge conflicts and protect the main codebase, please follow this workflow every time you work:
+
+1.  **Start your session & Sync:**
+    Switch to the main branch and pull the latest changes.
+    ```bash
+    git checkout main
+    git pull origin main
+    ```
+
+2.  **Create your feature branch:**
+    Create and switch to a new branch for your specific task (use a descriptive name like `feat/login-page` or `fix/button-bug`).
+    ```bash
+    git checkout -b your-branch-name
+    ```
+
+3.  **Make your changes.**
+
+4.  **Commit and Push:**
+    Once your changes are ready, stage them, commit them, and push your feature branch to the remote repository.
+    ```bash
+    git add .
+    git commit -m "feat: description of changes"
+    git push origin your-branch-name
+    ```
+
+5.  **Merge your work:**
+    Go to GitHub and open a **Pull Request (PR)** from `your-branch-name` into `main`.
