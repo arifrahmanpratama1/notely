@@ -1,221 +1,242 @@
 /* --- GLOBAL & BASE STYLES --- */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #FFF0F5; /* Lavender Blush / Very soft pastel pink */
-  color: #4A3E41; /* Soft dark berry for readable text */
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fff0f5; /* Lavender Blush / Very soft pastel pink */
+    color: #4a3e41; /* Soft dark berry for readable text */
 }
 
 /* --- REUSABLE LAYOUTS & CARDS --- */
 .page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.btn-red {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-red:hover {
+    background-color: #c53030;
 }
 
 .home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 40px;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+    text-align: center;
 }
 
 .auth-card {
-  background-color: #ffffff; /* Clean white card */
-  width: 100%;
-  max-width: 420px;
-  border-radius: 20px; /* Slightly rounder for a softer pastel aesthetic */
-  box-shadow: 0 15px 35px rgba(242, 181, 197, 0.3); /* Soft pinkish shadow */
-  padding: 40px 32px;
-  box-sizing: border-box;
-  border: 1px solid #FFE4E1; /* Misty Rose border */
-  text-align: center;
+    background-color: #ffffff; /* Clean white card */
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px; /* Slightly rounder for a softer pastel aesthetic */
+    box-shadow: 0 15px 35px rgba(242, 181, 197, 0.3); /* Soft pinkish shadow */
+    padding: 40px 32px;
+    box-sizing: border-box;
+    border: 1px solid #ffe4e1; /* Misty Rose border */
+    text-align: center;
 }
 
 /* --- TYPOGRAPHY & HEADER --- */
 .home-title {
-  font-weight: 400;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-  color: #D47A91; /* Pastel rose dark accent */
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: #d47a91; /* Pastel rose dark accent */
 }
 
 .home-subtitle {
-  color: #8B787D;
-  margin-bottom: 40px;
+    color: #8b787d;
+    margin-bottom: 40px;
 }
 
 .header-container {
-  margin-bottom: 32px;
+    margin-bottom: 32px;
 }
 
 .auth-title {
-  margin: 0 0 8px 0;
-  font-size: 24px;
-  font-weight: 700;
-  color: #A3485E; /* Deep pastel rose */
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #a3485e; /* Deep pastel rose */
 }
 
 .auth-subtitle {
-  margin: 0;
-  font-size: 14px;
-  color: #8B787D;
-  line-height: 1.5;
+    margin: 0;
+    font-size: 14px;
+    color: #8b787d;
+    line-height: 1.5;
 }
 
 /* --- FORMS & INPUTS --- */
 .auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
 }
 
 .input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .form-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #8B787D;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8b787d;
 }
 
 .form-input {
-  padding: 12px 16px;
-  font-size: 15px;
-  border-radius: 10px;
-  border: 1px solid #FCD7DE;
-  background-color: #FFF9FA; /* Very subtle pink-tinted input background */
-  color: #4A3E41;
-  outline: none;
-  box-sizing: border-box;
-  width: 100%;
-  transition: all 0.2s ease;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid #fcd7de;
+    background-color: #fff9fa; /* Very subtle pink-tinted input background */
+    color: #4a3e41;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    transition: all 0.2s ease;
 }
 
 .form-input:focus {
-  border-color: #F093A9;
-  box-shadow: 0 0 0 3px rgba(240, 147, 169, 0.2);
+    border-color: #f093a9;
+    box-shadow: 0 0 0 3px rgba(240, 147, 169, 0.2);
 }
 
 /* --- BUTTONS & LINKS --- */
 .button-row {
-  display: flex;
-  gap: 20px;
+    display: flex;
+    gap: 20px;
 }
 
 .btn {
-  padding: 12px 30px;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: 0.3s;
-  text-align: center;
-  min-width: 150px;
-  cursor: pointer;
-  box-sizing: border-box;
-  font-weight: 600;
+    padding: 12px 30px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.3s;
+    text-align: center;
+    min-width: 150px;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 600;
 }
 
 .btn-green {
-  background-color: #F093A9; /* Main pastel pink button */
-  border: none;
+    background-color: #f093a9; /* Main pastel pink button */
+    border: none;
 }
 
 .btn-green:hover {
-  background-color: #E27B94;
+    background-color: #e27b94;
 }
 
 .btn-transparent {
-  background-color: transparent;
-  border: 2px solid #F093A9;
-  color: #F093A9;
+    background-color: transparent;
+    border: 2px solid #f093a9;
+    color: #f093a9;
 }
 
 .btn-transparent:hover {
-  background-color: rgba(240, 147, 169, 0.1);
+    background-color: rgba(240, 147, 169, 0.1);
 }
 
 .btn-submit {
-  margin-top: 10px;
-  padding: 14px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  text-align: center;
+    margin-top: 10px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center;
 }
 
-.btn-teal { 
-  background-color: #F093A9; /* Combined to cohesive pastel pink */
+.btn-teal {
+    background-color: #f093a9; /* Combined to cohesive pastel pink */
 }
-.btn-teal:hover { background-color: #E27B94; }
+.btn-teal:hover {
+    background-color: #e27b94;
+}
 
-.btn-indigo { 
-  background-color: #DE6B87; /* Slightly deeper pink for contrast on Login */
+.btn-indigo {
+    background-color: #de6b87; /* Slightly deeper pink for contrast on Login */
 }
-.btn-indigo:hover { background-color: #CD5370; }
+.btn-indigo:hover {
+    background-color: #cd5370;
+}
 
 /* --- BADGES & FOOTERS --- */
 .error-badge {
-  background-color: #FFF0F2;
-  color: #D64560;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  margin-bottom: 20px;
-  border: 1px solid #FCD7DE;
-  line-height: 1.4;
-  text-align: left;
+    background-color: #fff0f2;
+    color: #d64560;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #fcd7de;
+    line-height: 1.4;
+    text-align: left;
 }
 
 .success-badge {
-  background-color: #EBFBFA;
-  color: #2D7A76;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 20px;
-  border: 1px solid #C6F2EE;
-  line-height: 1.4;
+    background-color: #ebfbfa;
+    color: #2d7a76;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 1px solid #c6f2ee;
+    line-height: 1.4;
 }
 
 .navigation-footer {
-  margin-top: 24px;
-  font-size: 14px;
-  color: #8B787D;
-  text-align: center;
-  line-height: 1.8;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #8b787d;
+    text-align: center;
+    line-height: 1.8;
 }
 
-.footer-link-teal, .footer-link-indigo {
-  color: #DE6B87;
-  text-decoration: none;
-  font-weight: 600;
+.footer-link-teal,
+.footer-link-indigo {
+    color: #de6b87;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-.footer-link-teal:hover, .footer-link-indigo:hover {
-  text-decoration: underline;
+.footer-link-teal:hover,
+.footer-link-indigo:hover {
+    text-decoration: underline;
 }
 
 .back-link {
-  display: inline-block;
-  margin-top: 12px;
-  color: #A39095;
-  text-decoration: none;
-  font-size: 13px;
+    display: inline-block;
+    margin-top: 12px;
+    color: #a39095;
+    text-decoration: none;
+    font-size: 13px;
 }
