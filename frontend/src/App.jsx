@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 
+// Import the unified stylesheet here 
+import "./App.css"; 
+
 function App() {
   return (
     <AuthProvider>
