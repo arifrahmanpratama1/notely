@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Tambahkan useEffect jika ingin auto-redirect
+import { useNavigate, Link } from "react-router-dom"; // Tambahkan baris ini
 import { loginUser } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 
@@ -7,7 +8,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login, isAuthenticated, logout } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+  const navigate = useNavigate(); // Inisialisasi fungsi navigasi
+
+  // Efek otomatis: Jika user sudah login, langsung lempar ke halaman dashboard/home
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/"); // Ubah ke "/tasks" jika Anda nanti membuat route khusus untuk tugas
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,70 +32,97 @@ export default function Login() {
     }
   };
 
-  // Tampilan ketika user sudah berhasil login
-  if (isAuthenticated) {
-    return (
-      <div style={styles.card}>
-        <div style={styles.iconSuccess}>✓</div>
-        <h2 style={styles.title}>Berhasil Masuk!</h2>
-        <p style={styles.subtitle}>
-          Sesi Anda telah aktif. Selamat mengelola tugas Anda.
-        </p>
-        <button onClick={logout} style={styles.buttonLogout}>
-          Keluar dari Akun
-        </button>
-      </div>
-    );
-  }
-
   // Tampilan Form Login Modern (Dark Theme)
   return (
-    <div style={styles.card}>
-      <div style={styles.headerContainer}>
-        <h2 style={styles.title}>Selamat Datang Kembali</h2>
-        <p style={styles.subtitle}>
-          Silakan masuk menggunakan akun yang sudah terdaftar
-        </p>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "80vh",
+      }}
+    >
+      <div style={styles.card}>
+        <div style={styles.headerContainer}>
+          <h2 style={styles.title}>Selamat Datang Kembali</h2>
+          <p style={styles.subtitle}>
+            Silakan masuk menggunakan akun yang sudah terdaftar
+          </p>
+        </div>
+
+        {error && (
+          <div style={styles.errorBadge}>
+            <span style={{ fontWeight: "bold" }}>Gagal:</span> {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} style={styles.form}>
+          {/* ... Input group Username & Password tetap sama seperti kode Anda ... */}
+          <div style={styles.inputGroup}>
+            <label style={styles.label}>Username</label>
+            <input
+              type="text"
+              placeholder="Masukkan username Anda"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              style={styles.input}
+            />
+          </div>
+
+          <div style={styles.inputGroup}>
+            <label style={styles.label}>Password</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={styles.input}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            style={styles.buttonSubmit}
+          >
+            {isLoading ? "Memproses..." : "Masuk Aplikasi"}
+          </button>
+        </form>
+
+        {/* Link Navigasi Tambahan */}
+        <div style={{ marginTop: "24px", fontSize: "14px", color: "#a0aec0" }}>
+          Belum punya akun?{" "}
+          <Link
+            to="/signup"
+            style={{
+              color: "#4f46e5",
+              textDecoration: "none",
+              fontWeight: "600",
+            }}
+          >
+            Daftar di sini
+          </Link>
+          <br />
+          <Link
+            to="/"
+            style={{
+              display: "inline-block",
+              marginTop: "12px",
+              color: "#718096",
+              textDecoration: "none",
+            }}
+          >
+            ← Kembali ke Beranda
+          </Link>
+        </div>
       </div>
-
-      {error && (
-        <div style={styles.errorBadge}>
-          <span style={{ fontWeight: "bold" }}>Gagal:</span> {error}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>Username</label>
-          <input
-            type="text"
-            placeholder="Masukkan username Anda"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>Password</label>
-          <input
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-
-        <button type="submit" disabled={isLoading} style={styles.buttonSubmit}>
-          {isLoading ? "Memproses..." : "Masuk Aplikasi"}
-        </button>
-      </form>
     </div>
   );
 }
+
+// ... objek `styles` Anda tetap sama di bawahnya ...
 
 // --- JALUR DESIGN STYLING (Dark Dashboard Theme) ---
 const styles = {

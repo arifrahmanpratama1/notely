@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Tambahkan ini untuk navigasi antar halaman FE
 import { signupUser } from "../api/auth";
 
 export default function Signup() {
@@ -32,80 +33,107 @@ export default function Signup() {
   };
 
   return (
-    <div style={styles.card}>
-      <div style={styles.headerContainer}>
-        <h2 style={styles.title}>Daftar Akun Baru</h2>
-        <p style={styles.subtitle}>
-          Mulai kelola tugas harian Anda secara terorganisir
-        </p>
+    <div style={styles.pageContainer}>
+      <div style={styles.card}>
+        <div style={styles.headerContainer}>
+          <h2 style={styles.title}>Daftar Akun Baru</h2>
+          <p style={styles.subtitle}>
+            Mulai kelola tugas harian Anda secara terorganisir
+          </p>
+        </div>
+
+        {message && <div style={styles.successBadge}>{message}</div>}
+        {error && (
+          <div style={styles.errorBadge}>
+            <span style={{ fontWeight: "bold" }}>Gagal:</span> {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <div style={styles.inputGroup}>
+            <label style={styles.label}>Username</label>
+            <input
+              type="text"
+              name="username"
+              placeholder="Pilih nama pengguna"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+          </div>
+
+          <div style={styles.inputGroup}>
+            <label style={styles.label}>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="name@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+          </div>
+
+          <div style={styles.inputGroup}>
+            <label style={styles.label}>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            style={styles.buttonSubmit}
+          >
+            {isLoading ? "Mendaftarkan..." : "Daftar Sekarang"}
+          </button>
+        </form>
+
+        {/* JALUR NAVIGASI TAMBAHAN */}
+        <div style={styles.navigationFooter}>
+          Sudah memiliki akun?{" "}
+          <Link to="/login" style={styles.loginLink}>
+            Silakan Login
+          </Link>
+          <br />
+          <Link to="/" style={styles.backLink}>
+            ← Kembali ke Beranda
+          </Link>
+        </div>
       </div>
-
-      {message && <div style={styles.successBadge}>{message}</div>}
-      {error && (
-        <div style={styles.errorBadge}>
-          <span style={{ fontWeight: "bold" }}>Gagal:</span> {error}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Pilih nama pengguna"
-            value={formData.username}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
-
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="name@example.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
-
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
-
-        <button type="submit" disabled={isLoading} style={styles.buttonSubmit}>
-          {isLoading ? "Mendaftarkan..." : "Daftar Sekarang"}
-        </button>
-      </form>
     </div>
   );
 }
 
-// --- JALUR DESIGN STYLING (Dark Premium Theme) ---
+// --- JALUR DESIGN STYLING (Dark Premium Theme dengan Layout Wrapper) ---
 const styles = {
+  pageContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "100vh",
+    backgroundColor: "#121212", // Menyelaraskan dengan background utama App.jsx
+    padding: "20px",
+    boxSizing: "border-box",
+  },
   card: {
-    backgroundColor: "#1e1e1e", // Hitam abu premium (kontras dengan #121212 dari App.jsx)
+    backgroundColor: "#1e1e1e", // Hitam abu premium
     width: "100%",
     maxWidth: "420px",
     borderRadius: "16px",
-    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)", // Bayangan lebih tebal untuk tema gelap
+    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)",
     padding: "40px 32px",
     boxSizing: "border-box",
-    border: "1px solid #2d2d2d", // Border tipis transparan agar terlihat elegan
+    border: "1px solid #2d2d2d",
   },
   headerContainer: {
     marginBottom: "32px",
@@ -122,7 +150,7 @@ const styles = {
   subtitle: {
     margin: 0,
     fontSize: "14px",
-    color: "#a0aec0", // Abu-abu soft
+    color: "#a0aec0",
     lineHeight: "1.5",
   },
   form: {
@@ -145,7 +173,7 @@ const styles = {
     fontSize: "15px",
     borderRadius: "8px",
     border: "1px solid #3a3a3a",
-    backgroundColor: "#2d2d2d", // Input area lebih gelap dari card
+    backgroundColor: "#2d2d2d",
     color: "#ffffff",
     outline: "none",
     boxSizing: "border-box",
@@ -158,7 +186,7 @@ const styles = {
     fontSize: "15px",
     fontWeight: "600",
     color: "#ffffff",
-    backgroundColor: "#319795", // Teal / Toska gelap untuk membedakan dengan tombol Login yang Indigo
+    backgroundColor: "#319795", // Teal gelap
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
@@ -184,5 +212,24 @@ const styles = {
     marginBottom: "20px",
     border: "1px solid #204a37",
     lineHeight: "1.4",
+  },
+  navigationFooter: {
+    marginTop: "24px",
+    fontSize: "14px",
+    color: "#a0aec0",
+    textAlign: "center",
+    lineHeight: "1.8",
+  },
+  loginLink: {
+    color: "#319795",
+    textDecoration: "none",
+    fontWeight: "600",
+  },
+  backLink: {
+    display: "inline-block",
+    marginTop: "12px",
+    color: "#718096",
+    textDecoration: "none",
+    fontSize: "13px",
   },
 };
