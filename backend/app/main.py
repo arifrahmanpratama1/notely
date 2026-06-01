@@ -23,6 +23,11 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root():
+    return {"message": "Connected to DB & Backend successfully!"}
+
+
 @app.post(
     "/users", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED
 )
