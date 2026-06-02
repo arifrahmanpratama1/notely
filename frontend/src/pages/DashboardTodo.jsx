@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext"; // Ambil token global dari sini
+import { useState, useEffect, useMemo } from "react";
+import { useAuth } from "../context/AuthContext";
 import {
   fetchTodosApi,
   createTodoApi,
@@ -8,11 +8,14 @@ import {
 } from "../api/todo";
 
 export default function DashboardTodo() {
-  const { token, logout } = useAuth(); // Dapatkan token akses JWT
-  const [todos, setTodos] = useState([]); // Mulai dengan array kosong (menunggu database)
+  const { token, logout } = useAuth();
+  const [todos, setTodos] = useState([]);
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Fitur Baru: State untuk memfilter daftar to-do ('all', 'active', 'completed')
+  const [filter, setFilter] = useState("all");
 
   // --- 1. Ambil Data dari SQLite Pertama Kali ---
   useEffect(() => {
@@ -22,7 +25,7 @@ export default function DashboardTodo() {
         const data = await fetchTodosApi(token);
         setTodos(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Gagal mengambil data tugas.");
       } finally {
         setIsLoading(false);
       }
@@ -37,8 +40,9 @@ export default function DashboardTodo() {
 
     try {
       const newTodoFromServer = await createTodoApi(token, newTodoTitle);
-      setTodos([newTodoFromServer, ...todos]); // Masukkan data asli dari backend ke state UI
+      setTodos([newTodoFromServer, ...todos]);
       setNewTodoTitle("");
+      setError(""); // Reset error jika berhasil
     } catch (err) {
       setError("Gagal menyimpan tugas baru ke server.");
     }
@@ -64,15 +68,25 @@ export default function DashboardTodo() {
     }
   };
 
+  // --- 5. Perhitungan Statistik (Kini Lebih Kaya) ---
+  const totalCount = todos.length;
   const completedCount = todos.filter((t) => t.is_completed).length;
+  const activeCount = totalCount - completedCount;
   const progressPercentage =
-    todos.length > 0 ? Math.round((completedCount / todos.length) * 100) : 0;
+    totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
-  // --- CARA MENDAPATKAN NAMA USER DARI JWT TOKEN ---
-  const dapatkanNamaDariToken = () => {
+  // --- 6. Memfilter Data Sesuai Tab Aktif ---
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "active") return !todo.is_completed;
+    if (filter === "completed") return todo.is_completed;
+    return true;
+  });
+
+  // --- 7. Optimasi Penguraian Token Menggunakan useMemo ---
+  const namaUser = useMemo(() => {
     if (!token) return "User";
     try {
-      const base64Url = token.split(".")[1]; // ambil payload token
+      const base64Url = token.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const jsonPayload = decodeURIComponent(
         atob(base64)
@@ -81,13 +95,11 @@ export default function DashboardTodo() {
           .join(""),
       );
       const parsed = JSON.parse(jsonPayload);
-      return parsed.sub || "User"; // 'sub' adalah field username tempat kita menyimpan data di BE FastAPI
+      return parsed.sub || "User";
     } catch (e) {
       return "User";
     }
-  };
-
-  const namaUser = dapatkanNamaDariToken();
+  }, [token]);
 
   return (
     <div className="dashboard-container">
@@ -97,21 +109,40 @@ export default function DashboardTodo() {
           Selamat Datang, <span className="dashboard-username">{namaUser}</span>
           !
         </h1>
+        <p className="dashboard-subtitle">
+          Kelola tugas harianmu dengan lebih terstruktur.
+        </p>
       </div>
 
       {error && <div className="error-badge">{error}</div>}
+
+      {/* BARU: Row untuk Ringkasan Statistik (Mengisi area yang sparse) */}
+      <div className="stats-grid">
+        <div className="stats-card">
+          <span className="stats-label">Total Tugas</span>
+          <span className="stats-value">{totalCount}</span>
+        </div>
+        <div className="stats-card active-tasks">
+          <span className="stats-label">Sedang Berjalan</span>
+          <span className="stats-value">{activeCount}</span>
+        </div>
+        <div className="stats-card completed-tasks">
+          <span className="stats-label">Selesai</span>
+          <span className="stats-value">{completedCount}</span>
+        </div>
+      </div>
 
       {/* Form Input Box */}
       <form onSubmit={handleAddTodo} className="todo-form">
         <input
           type="text"
-          placeholder="Agenda hari ini?"
+          placeholder="Ada agenda baru apa hari ini?"
           value={newTodoTitle}
           onChange={(e) => setNewTodoTitle(e.target.value)}
           className="todo-input"
         />
         <button type="submit" className="todo-submit-btn">
-          Commit
+          Tambah
         </button>
       </form>
 
@@ -122,7 +153,7 @@ export default function DashboardTodo() {
           <div className="progress-header">
             <span className="progress-title">PROGRESS TRACKER</span>
             <span className="progress-badge">
-              {completedCount} of {todos.length} Done
+              {progressPercentage}% Selesai
             </span>
           </div>
           <div className="progress-bar-bg">
@@ -133,37 +164,70 @@ export default function DashboardTodo() {
           </div>
         </div>
 
+        {/* BARU: Tab Filter Kontrol */}
+        <div className="todo-filter-tabs">
+          <button
+            className={`filter-tab ${filter === "all" ? "active" : ""}`}
+            onClick={() => setFilter("all")}
+          >
+            Semua ({totalCount})
+          </button>
+          <button
+            className={`filter-tab ${filter === "active" ? "active" : ""}`}
+            onClick={() => setFilter("active")}
+          >
+            Aktif ({activeCount})
+          </button>
+          <button
+            className={`filter-tab ${filter === "completed" ? "active" : ""}`}
+            onClick={() => setFilter("completed")}
+          >
+            Selesai ({completedCount})
+          </button>
+        </div>
+
         {/* Item List Area */}
         {isLoading ? (
           <div className="todo-status-msg">Mengambil data dari server...</div>
-        ) : todos.length === 0 ? (
-          <div className="todo-status-msg">
-            <p>Semua tugas selesai dikerjakan.</p>
+        ) : filteredTodos.length === 0 ? (
+          <div className="todo-status-msg empty-state">
+            {filter === "all" && (
+              <p>Belum ada tugas dibuat. Yuk, mulai produktif hari ini!</p>
+            )}
+            {filter === "active" && (
+              <p>Semua tugas sudah diselesaikan. Kerja bagus!</p>
+            )}
+            {filter === "completed" && (
+              <p>Belum ada tugas yang diselesaikan. Tetap semangat!</p>
+            )}
           </div>
         ) : (
           <ul className="todo-list">
-            {todos.map((todo) => (
+            {filteredTodos.map((todo) => (
               <li
                 key={todo.id}
                 className={`todo-item ${todo.is_completed ? "completed" : ""}`}
               >
                 <div className="todo-item-left">
-                  <input
-                    type="checkbox"
-                    checked={todo.is_completed}
-                    onChange={() =>
-                      handleToggleComplete(todo.id, todo.is_completed)
-                    }
-                    className="todo-checkbox"
-                  />
-                  <span className="todo-title-text">{todo.title}</span>
+                  <label className="todo-checkbox-wrapper">
+                    <input
+                      type="checkbox"
+                      checked={todo.is_completed}
+                      onChange={() =>
+                        handleToggleComplete(todo.id, todo.is_completed)
+                      }
+                      className="todo-checkbox"
+                    />
+                    <span className="todo-title-text">{todo.title}</span>
+                  </label>
                 </div>
 
                 <button
                   onClick={() => handleDeleteTodo(todo.id)}
                   className="todo-delete-btn"
+                  aria-label="Hapus tugas"
                 >
-                  Delete
+                  Hapus
                 </button>
               </li>
             ))}
@@ -171,10 +235,10 @@ export default function DashboardTodo() {
         )}
       </div>
 
-      {/* Moved Log Out Action Below Card Workspace */}
+      {/* Footer Actions */}
       <div className="dashboard-footer-actions">
         <button onClick={logout} className="btn-logout">
-          Log Out Account
+          Keluar Akun
         </button>
       </div>
     </div>
