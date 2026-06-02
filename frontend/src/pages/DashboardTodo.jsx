@@ -69,8 +69,6 @@ export default function DashboardTodo() {
     todos.length > 0 ? Math.round((completedCount / todos.length) * 100) : 0;
 
   // --- CARA MENDAPATKAN NAMA USER DARI JWT TOKEN ---
-  // Karena JWT Token menyimpan informasi username di dalam payload-nya (bagian tengah hash),
-  // kita bisa membongkarnya tanpa perlu hit API profile tambahan!
   const dapatkanNamaDariToken = () => {
     if (!token) return "User";
     try {
@@ -92,282 +90,78 @@ export default function DashboardTodo() {
   const namaUser = dapatkanNamaDariToken();
 
   return (
-    <div
-      className="dashboard-container"
-      style={{
-        padding: "60px 24px",
-        maxWidth: "600px",
-        margin: "0 auto",
-        fontFamily: "system-ui, -apple-system, sans-serif",
-        color: "#2d3748",
-      }}
-    >
+    <div className="dashboard-container">
       {/* Header Dashboard */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "32px",
-        }}
-      >
-        <div>
-          <span
-            style={{
-              fontSize: "0.75rem",
-              fontWeight: "600",
-              color: "#a0aec0",
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-            }}
-          >
-            / Workspace
-          </span>
-          <h1
-            style={{
-              fontSize: "1.85rem",
-              fontWeight: "800",
-              marginTop: "4px",
-              margin: 0,
-              color: "#1a202c",
-            }}
-          >
-            Selamat Datang,{" "}
-            <span style={{ color: "#3182ce", textTransform: "capitalize" }}>
-              {namaUser}
-            </span>
-            !
-          </h1>
-        </div>
-
-        <button
-          onClick={logout}
-          style={{
-            padding: "8px 16px",
-            borderRadius: "10px",
-            fontWeight: "600",
-            fontSize: "0.8rem",
-            backgroundColor: "#fff0f0",
-            color: "#e53e3e",
-            border: "1px solid #fed7d7",
-            cursor: "pointer",
-          }}
-        >
-          Log Out
-        </button>
+      <div className="dashboard-header">
+        <h1 className="dashboard-welcome">
+          Selamat Datang, <span className="dashboard-username">{namaUser}</span>
+          !
+        </h1>
       </div>
 
-      {error && (
-        <div
-          style={{
-            backgroundColor: "#fff5f5",
-            color: "#c53030",
-            padding: "12px",
-            borderRadius: "8px",
-            marginBottom: "16px",
-            fontSize: "14px",
-            border: "1px solid #fed7d7",
-          }}
-        >
-          {error}
-        </div>
-      )}
+      {error && <div className="error-badge">{error}</div>}
 
       {/* Form Input Box */}
-      <form
-        onSubmit={handleAddTodo}
-        style={{
-          display: "flex",
-          gap: "12px",
-          backgroundColor: "#ffffff",
-          padding: "8px 8px 8px 16px",
-          borderRadius: "14px",
-          border: "1px solid #e2e8f0",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.03)",
-          marginBottom: "24px",
-        }}
-      >
+      <form onSubmit={handleAddTodo} className="todo-form">
         <input
           type="text"
-          placeholder="Ada agenda apa hari ini?"
+          placeholder="Agenda hari ini?"
           value={newTodoTitle}
           onChange={(e) => setNewTodoTitle(e.target.value)}
-          style={{
-            flex: 1,
-            border: "none",
-            backgroundColor: "transparent",
-            color: "#2d3748",
-            fontSize: "0.95rem",
-            outline: "none",
-          }}
+          className="todo-input"
         />
-        <button
-          type="submit"
-          style={{
-            padding: "10px 20px",
-            borderRadius: "10px",
-            fontWeight: "700",
-            fontSize: "0.85rem",
-            cursor: "pointer",
-            background: "#1a202c",
-            color: "#ffffff",
-            border: "none",
-          }}
-        >
+        <button type="submit" className="todo-submit-btn">
           Commit
         </button>
       </form>
 
       {/* Kotak Card Utama Pembungkus To-Do List */}
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          border: "1px solid #e2e8f0",
-          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05)",
-          overflow: "hidden",
-        }}
-      >
+      <div className="todo-card">
         {/* Panel Statistik Progres */}
-        <div
-          style={{
-            padding: "20px 24px",
-            backgroundColor: "#f7fafc",
-            borderBottom: "1px solid #e2e8f0",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
-            <span
-              style={{
-                color: "#4a5568",
-                fontWeight: "700",
-                fontSize: "0.8rem",
-                letterSpacing: "0.05em",
-              }}
-            >
-              PROGRESS TRACKER
-            </span>
-            <span
-              style={{
-                color: "#2b6cb0",
-                fontSize: "0.8rem",
-                fontWeight: "700",
-                backgroundColor: "#ebf8ff",
-                padding: "2px 8px",
-                borderRadius: "12px",
-              }}
-            >
+        <div className="progress-panel">
+          <div className="progress-header">
+            <span className="progress-title">PROGRESS TRACKER</span>
+            <span className="progress-badge">
               {completedCount} of {todos.length} Done
             </span>
           </div>
-          <div
-            style={{
-              width: "100%",
-              height: "6px",
-              backgroundColor: "#edf2f7",
-              borderRadius: "10px",
-              overflow: "hidden",
-            }}
-          >
+          <div className="progress-bar-bg">
             <div
-              style={{
-                width: `${progressPercentage}%`,
-                height: "100%",
-                backgroundColor: "#3182ce",
-                transition: "width 0.4s ease",
-              }}
+              className="progress-bar-fill"
+              style={{ width: `${progressPercentage}%` }}
             ></div>
           </div>
         </div>
 
         {/* Item List Area */}
         {isLoading ? (
-          <div
-            style={{ textAlign: "center", padding: "48px", color: "#a0aec0" }}
-          >
-            Mengambil data dari server...
-          </div>
+          <div className="todo-status-msg">Mengambil data dari server...</div>
         ) : todos.length === 0 ? (
-          <div
-            style={{
-              textAlign: "center",
-              padding: "48px 24px",
-              color: "#a0aec0",
-            }}
-          >
-            <p style={{ fontSize: "0.95rem", margin: 0 }}>
-              Semua tugas selesai dikerjakan.
-            </p>
+          <div className="todo-status-msg">
+            <p>Semua tugas selesai dikerjakan.</p>
           </div>
         ) : (
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <ul className="todo-list">
             {todos.map((todo) => (
               <li
                 key={todo.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "18px 24px",
-                  border_bottom: "1px solid #edf2f7",
-                  backgroundColor: todo.is_completed
-                    ? "#f7fafc"
-                    : "transparent",
-                }}
+                className={`todo-item ${todo.is_completed ? "completed" : ""}`}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "14px",
-                    flex: 1,
-                  }}
-                >
+                <div className="todo-item-left">
                   <input
                     type="checkbox"
                     checked={todo.is_completed}
                     onChange={() =>
                       handleToggleComplete(todo.id, todo.is_completed)
                     }
-                    style={{
-                      width: "16px",
-                      height: "16px",
-                      cursor: "pointer",
-                      accentColor: "#3182ce",
-                    }}
+                    className="todo-checkbox"
                   />
-                  <span
-                    style={{
-                      textDecoration: todo.is_completed
-                        ? "line-through"
-                        : "none",
-                      color: todo.is_completed ? "#a0aec0" : "#2d3748",
-                      fontSize: "0.95rem",
-                      fontWeight: "500",
-                    }}
-                  >
-                    {todo.title}
-                  </span>
+                  <span className="todo-title-text">{todo.title}</span>
                 </div>
 
                 <button
                   onClick={() => handleDeleteTodo(todo.id)}
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "none",
-                    color: "#e53e3e",
-                    cursor: "pointer",
-                    fontSize: "0.8rem",
-                    fontWeight: "600",
-                    opacity: 0.6,
-                  }}
+                  className="todo-delete-btn"
                 >
                   Delete
                 </button>
@@ -375,6 +169,13 @@ export default function DashboardTodo() {
             ))}
           </ul>
         )}
+      </div>
+
+      {/* Moved Log Out Action Below Card Workspace */}
+      <div className="dashboard-footer-actions">
+        <button onClick={logout} className="btn-logout">
+          Log Out Account
+        </button>
       </div>
     </div>
   );

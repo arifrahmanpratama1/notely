@@ -1,4 +1,6 @@
-/* --- GLOBAL & BASE STYLES --- */
+/* =========================================
+   1. GLOBAL & BASE STYLES
+========================================= */
 body {
     margin: 0;
     font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -6,7 +8,6 @@ body {
     color: #4a3e41; /* Soft dark berry for readable text */
 }
 
-/* --- REUSABLE LAYOUTS & CARDS --- */
 .page-container {
     display: flex;
     justify-content: center;
@@ -16,6 +17,9 @@ body {
     box-sizing: border-box;
 }
 
+/* =========================================
+   2. REUSABLE BUTTONS & BADGES
+========================================= */
 .btn-red {
     background-color: #e53e3e;
     color: white;
@@ -29,103 +33,6 @@ body {
 
 .btn-red:hover {
     background-color: #c53030;
-}
-
-.home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 40px;
-    text-align: center;
-}
-
-.auth-card {
-    background-color: #ffffff; /* Clean white card */
-    width: 100%;
-    max-width: 420px;
-    border-radius: 20px; /* Slightly rounder for a softer pastel aesthetic */
-    box-shadow: 0 15px 35px rgba(242, 181, 197, 0.3); /* Soft pinkish shadow */
-    padding: 40px 32px;
-    box-sizing: border-box;
-    border: 1px solid #ffe4e1; /* Misty Rose border */
-    text-align: center;
-}
-
-/* --- TYPOGRAPHY & HEADER --- */
-.home-title {
-    font-weight: 400;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    color: #d47a91; /* Pastel rose dark accent */
-}
-
-.home-subtitle {
-    color: #8b787d;
-    margin-bottom: 40px;
-}
-
-.header-container {
-    margin-bottom: 32px;
-}
-
-.auth-title {
-    margin: 0 0 8px 0;
-    font-size: 24px;
-    font-weight: 700;
-    color: #a3485e; /* Deep pastel rose */
-}
-
-.auth-subtitle {
-    margin: 0;
-    font-size: 14px;
-    color: #8b787d;
-    line-height: 1.5;
-}
-
-/* --- FORMS & INPUTS --- */
-.auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    text-align: left;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.form-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #8b787d;
-}
-
-.form-input {
-    padding: 12px 16px;
-    font-size: 15px;
-    border-radius: 10px;
-    border: 1px solid #fcd7de;
-    background-color: #fff9fa; /* Very subtle pink-tinted input background */
-    color: #4a3e41;
-    outline: none;
-    box-sizing: border-box;
-    width: 100%;
-    transition: all 0.2s ease;
-}
-
-.form-input:focus {
-    border-color: #f093a9;
-    box-shadow: 0 0 0 3px rgba(240, 147, 169, 0.2);
-}
-
-/* --- BUTTONS & LINKS --- */
-.button-row {
-    display: flex;
-    gap: 20px;
 }
 
 .btn {
@@ -175,20 +82,19 @@ body {
 }
 
 .btn-teal {
-    background-color: #f093a9; /* Combined to cohesive pastel pink */
+    background-color: #f093a9;
 }
 .btn-teal:hover {
     background-color: #e27b94;
 }
 
 .btn-indigo {
-    background-color: #de6b87; /* Slightly deeper pink for contrast on Login */
+    background-color: #de6b87;
 }
 .btn-indigo:hover {
     background-color: #cd5370;
 }
 
-/* --- BADGES & FOOTERS --- */
 .error-badge {
     background-color: #fff0f2;
     color: #d64560;
@@ -211,6 +117,76 @@ body {
     margin-bottom: 20px;
     border: 1px solid #c6f2ee;
     line-height: 1.4;
+}
+
+/* =========================================
+   3. AUTHENTICATION PAGES (Login / Signup)
+========================================= */
+.auth-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(242, 181, 197, 0.3);
+    padding: 40px 32px;
+    box-sizing: border-box;
+    border: 1px solid #ffe4e1;
+    text-align: center;
+}
+
+.header-container {
+    margin-bottom: 32px;
+}
+
+.auth-title {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #a3485e;
+}
+
+.auth-subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: #8b787d;
+    line-height: 1.5;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #8b787d;
+}
+
+.form-input {
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid #fcd7de;
+    background-color: #fff9fa;
+    color: #4a3e41;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: #f093a9;
+    box-shadow: 0 0 0 3px rgba(240, 147, 169, 0.2);
 }
 
 .navigation-footer {
@@ -239,4 +215,506 @@ body {
     color: #a39095;
     text-decoration: none;
     font-size: 13px;
+}
+
+/* =========================================
+   4. HOME / LANDING PAGE
+========================================= */
+.home-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 60px 24px;
+    box-sizing: border-box;
+}
+
+.home-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 650px;
+}
+
+.hero-badge {
+    background-color: #fff0f2;
+    color: #de6b87;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    border: 1px solid #fcd7de;
+    display: inline-block;
+}
+
+.home-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin: 0 0 16px 0;
+    color: #a3485e;
+}
+
+.home-subtitle {
+    font-size: 1.1rem;
+    color: #8b787d;
+    line-height: 1.6;
+    margin-top: 0;
+    margin-bottom: 32px;
+}
+
+.home-hero .button-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.home-hero .btn {
+    min-width: 200px;
+}
+
+.features-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Symmetrical 2x2 Layout */
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.feature-card {
+    background-color: #ffffff;
+    border: 1px solid #ffe4e1;
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 10px 25px -5px rgba(242, 181, 197, 0.15);
+    text-align: left;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(242, 181, 197, 0.25);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    background-color: #fff0f2;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.feature-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    color: #a3485e;
+    font-weight: 700;
+}
+
+.feature-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #8b787d;
+    line-height: 1.5;
+}
+
+.home-stats-footer {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    border-top: 1px dashed #fcd7de;
+    padding-top: 32px;
+    width: 100%;
+    justify-content: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-item strong {
+    font-size: 1.2rem;
+    color: #de6b87;
+    font-weight: 700;
+}
+
+.stat-item span {
+    font-size: 0.8rem;
+    color: #a39095;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.divider-line {
+    width: 1px;
+    height: 24px;
+    background-color: #ffe4e1;
+}
+
+@media (max-width: 600px) {
+    .home-title {
+        font-size: 2.5rem;
+    }
+    .features-section {
+        grid-template-columns: 1fr; /* Responsive fallback to stack on mobile */
+    }
+    .home-stats-footer {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .divider-line {
+        display: none;
+    }
+}
+
+/* =========================================
+   5. DASHBOARD STYLES
+========================================= */
+.dashboard-container {
+    padding: 60px 24px;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    color: #4a3e41;
+}
+
+.dashboard-header {
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.dashboard-welcome {
+    font-size: 1.85rem;
+    font-weight: 800;
+    margin: 0;
+    color: #a3485e;
+}
+
+.dashboard-username {
+    color: #de6b87;
+    text-transform: capitalize;
+}
+
+.todo-form {
+    display: flex;
+    gap: 12px;
+    background-color: #ffffff;
+    padding: 8px 8px 8px 16px;
+    border-radius: 14px;
+    border: 1px solid #ffe4e1;
+    box-shadow: 0 4px 12px rgba(242, 181, 197, 0.15);
+    margin-bottom: 24px;
+}
+
+.todo-input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    color: #4a3e41;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.todo-submit-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: #de6b87;
+    color: #ffffff;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.todo-submit-btn:hover {
+    background: #cd5370;
+}
+
+.todo-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #ffe4e1;
+    box-shadow: 0 10px 25px -5px rgba(242, 181, 197, 0.2);
+    overflow: hidden;
+}
+
+.progress-panel {
+    padding: 20px 24px;
+    background-color: #fff9fa;
+    border-bottom: 1px solid #ffe4e1;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.progress-title {
+    color: #8b787d;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+.progress-badge {
+    color: #a3485e;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background-color: #fff0f2;
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid #fcd7de;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background-color: #fff0f2;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #f093a9;
+    transition: width 0.4s ease;
+}
+
+.todo-status-msg {
+    text-align: center;
+    padding: 48px 24px;
+    color: #a39095;
+    font-size: 0.95rem;
+}
+
+.todo-status-msg p {
+    margin: 0;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid #fff0f2;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+.todo-item.completed {
+    background-color: #fff9fa;
+}
+
+.todo-item-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+}
+
+.todo-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #f093a9;
+}
+
+.todo-title-text {
+    color: #4a3e41;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.todo-item.completed .todo-title-text {
+    text-decoration: line-through;
+    color: #a39095;
+}
+
+.todo-delete-btn {
+    background-color: transparent;
+    border: none;
+    color: #d64560;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.todo-delete-btn:hover {
+    opacity: 1;
+}
+
+.dashboard-footer-actions {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-logout {
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    background-color: #fff0f2;
+    color: #d64560;
+    border: 1px solid #fcd7de;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: #fcd7de;
+}
+
+/* =========================================
+   6. BACKGROUND FLORAL EFFECTS
+========================================= */
+.home-page-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: #fff0f5; /* Lavender Blush background */
+}
+
+/* Ensure the main container sits safely on top of backgrounds */
+.home-page-wrapper .home-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Base configuration for decoration layer */
+.floral-decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows user to click straight through them */
+    z-index: 1;
+}
+
+/* Custom Floating Keyframes */
+@keyframes floralFloat {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(4deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes petalDrift {
+    0% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px) rotate(45deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+        opacity: 0.4;
+    }
+}
+
+/* Structural Vector Layouts */
+.flower {
+    position: absolute;
+    opacity: 0.6;
+    animation: floralFloat 6s ease-in-out infinite;
+}
+
+.flower-top-left {
+    top: 40px;
+    left: -20px;
+    width: 180px;
+    height: 180px;
+    filter: blur(1px);
+}
+
+.flower-bottom-right {
+    bottom: 20px;
+    right: -10px;
+    width: 220px;
+    height: 220px;
+    animation-delay: 1.5s;
+}
+
+/* Individual Blossom Elements */
+.petal {
+    position: absolute;
+    font-size: 1.4rem;
+    filter: drop-shadow(0 2px 5px rgba(242, 181, 197, 0.4));
+    animation: petalDrift 8s ease-in-out infinite;
+}
+
+.petal-1 {
+    top: 15%;
+    right: 12%;
+    animation-delay: 0.5s;
+}
+
+.petal-2 {
+    top: 45%;
+    left: 8%;
+    font-size: 1.1rem;
+    animation-delay: 3s;
+    opacity: 0.5;
+}
+
+.petal-3 {
+    bottom: 25%;
+    left: 15%;
+    font-size: 1.3rem;
+    animation-delay: 1.8s;
+}
+
+/* Responsive cleanups */
+@media (max-width: 768px) {
+    .flower-top-left {
+        width: 110px;
+        height: 110px;
+        top: 10px;
+    }
+    .flower-bottom-right {
+        width: 130px;
+        height: 130px;
+    }
+    .petal-2 {
+        display: none; /* Clear middle clutter on small mobile devices */
+    }
 }
