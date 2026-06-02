@@ -10,7 +10,19 @@ export const signupUser = async (username, email, password) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.detail || "Gagal melakukan registrasi");
+
+    // Check if FastAPI returned an array of validation errors
+    let errorMessage = "Gagal melakukan registrasi";
+    if (Array.isArray(errorData.detail)) {
+      // Map through errors and combine their readable 'msg' fields
+      errorMessage = errorData.detail
+        .map((err) => `${err.loc[1]} should have at least 8 characters`)
+        .join(", ");
+    } else if (typeof errorData.detail === "string") {
+      errorMessage = errorData.detail;
+    }
+
+    throw new Error(errorMessage);
   }
   return response.json();
 };
@@ -29,7 +41,15 @@ export const loginUser = async (username, password) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.detail || "Username atau password salah");
+
+    let errorMessage = "Username atau password salah";
+    if (Array.isArray(errorData.detail)) {
+      errorMessage = errorData.detail.map((err) => err.msg).join(", ");
+    } else if (typeof errorData.detail === "string") {
+      errorMessage = errorData.detail;
+    }
+
+    throw new Error(errorMessage);
   }
-  return response.json(); // Mengembalikan { access_token: "...", token_type: "bearer" }
+  return response.json();
 };

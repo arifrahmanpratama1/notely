@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class TaskBase(BaseModel):
@@ -30,12 +30,12 @@ class TaskResponse(TaskBase):
 
 
 class UserBase(BaseModel):
-    username: str
+    username: str = Field(..., min_length=3, max_length=50)
     email: EmailStr
 
 
 class UserCreate(UserBase):
-    password: str
+    password: str = Field(..., min_length=8)
 
 
 class UserResponse(UserBase):
