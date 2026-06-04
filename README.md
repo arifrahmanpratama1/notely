@@ -30,7 +30,7 @@ This repository contains the project submission for RPL - Final Semester Exam.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Isvane/notely.git
+git clone https://github.com/isvane-academic-hub/notely.git
 cd notely
 ```
 
