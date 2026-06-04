@@ -13,11 +13,8 @@ export default function DashboardTodo() {
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // Fitur Baru: State untuk memfilter daftar to-do ('all', 'active', 'completed')
   const [filter, setFilter] = useState("all");
 
-  // --- 1. Ambil Data dari SQLite Pertama Kali ---
   useEffect(() => {
     const loadTodos = async () => {
       setIsLoading(true);
@@ -33,7 +30,6 @@ export default function DashboardTodo() {
     if (token) loadTodos();
   }, [token]);
 
-  // --- 2. Logika Menambah Data ke Database (CRUD - Create) ---
   const handleAddTodo = async (e) => {
     e.preventDefault();
     if (!newTodoTitle.trim()) return;
@@ -42,13 +38,12 @@ export default function DashboardTodo() {
       const newTodoFromServer = await createTodoApi(token, newTodoTitle);
       setTodos([newTodoFromServer, ...todos]);
       setNewTodoTitle("");
-      setError(""); // Reset error jika berhasil
+      setError("");
     } catch (err) {
       setError("Gagal menyimpan tugas baru ke server.");
     }
   };
 
-  // --- 3. Logika Update Data di Database (CRUD - Update) ---
   const handleToggleComplete = async (id, currentStatus) => {
     try {
       const updatedTodo = await updateTodoApi(token, id, !currentStatus);
@@ -58,7 +53,6 @@ export default function DashboardTodo() {
     }
   };
 
-  // --- 4. Logika Hapus Data dari Database (CRUD - Delete) ---
   const handleDeleteTodo = async (id) => {
     try {
       await deleteTodoApi(token, id);
@@ -68,21 +62,18 @@ export default function DashboardTodo() {
     }
   };
 
-  // --- 5. Perhitungan Statistik (Kini Lebih Kaya) ---
   const totalCount = todos.length;
   const completedCount = todos.filter((t) => t.is_completed).length;
   const activeCount = totalCount - completedCount;
   const progressPercentage =
     totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
-  // --- 6. Memfilter Data Sesuai Tab Aktif ---
   const filteredTodos = todos.filter((todo) => {
     if (filter === "active") return !todo.is_completed;
     if (filter === "completed") return todo.is_completed;
     return true;
   });
 
-  // --- 7. Optimasi Penguraian Token Menggunakan useMemo ---
   const namaUser = useMemo(() => {
     if (!token) return "User";
     try {
@@ -103,7 +94,6 @@ export default function DashboardTodo() {
 
   return (
     <div className="dashboard-container">
-      {/* Header Dashboard */}
       <div className="dashboard-header">
         <h1 className="dashboard-welcome">
           Selamat Datang, <span className="dashboard-username">{namaUser}</span>
@@ -116,7 +106,6 @@ export default function DashboardTodo() {
 
       {error && <div className="error-badge">{error}</div>}
 
-      {/* BARU: Row untuk Ringkasan Statistik (Mengisi area yang sparse) */}
       <div className="stats-grid">
         <div className="stats-card">
           <span className="stats-label">Total Tugas</span>
@@ -132,7 +121,6 @@ export default function DashboardTodo() {
         </div>
       </div>
 
-      {/* Form Input Box */}
       <form onSubmit={handleAddTodo} className="todo-form">
         <input
           type="text"
@@ -146,9 +134,7 @@ export default function DashboardTodo() {
         </button>
       </form>
 
-      {/* Kotak Card Utama Pembungkus To-Do List */}
       <div className="todo-card">
-        {/* Panel Statistik Progres */}
         <div className="progress-panel">
           <div className="progress-header">
             <span className="progress-title">PROGRESS TRACKER</span>
@@ -164,7 +150,6 @@ export default function DashboardTodo() {
           </div>
         </div>
 
-        {/* BARU: Tab Filter Kontrol */}
         <div className="todo-filter-tabs">
           <button
             className={`filter-tab ${filter === "all" ? "active" : ""}`}
@@ -186,7 +171,6 @@ export default function DashboardTodo() {
           </button>
         </div>
 
-        {/* Item List Area */}
         {isLoading ? (
           <div className="todo-status-msg">Mengambil data dari server...</div>
         ) : filteredTodos.length === 0 ? (
@@ -235,7 +219,6 @@ export default function DashboardTodo() {
         )}
       </div>
 
-      {/* Footer Actions */}
       <div className="dashboard-footer-actions">
         <button onClick={logout} className="btn-logout">
           Keluar Akun

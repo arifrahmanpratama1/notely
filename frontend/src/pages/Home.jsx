@@ -5,17 +5,13 @@ import DashboardTodo from "./DashboardTodo";
 export default function Home() {
   const { isAuthenticated } = useAuth();
 
-  // --- JIKA SUDAH LOGIN: Langsung panggil Dashboard ---
   if (isAuthenticated) {
     return <DashboardTodo />;
   }
 
-  // --- TAMPILAN LANDING PAGE (BELUM LOGIN) ---
   return (
     <div className="home-page-wrapper">
-      {/* Background Floral/Flowery Effects */}
       <div className="floral-decorations" aria-hidden="true">
-        {/* Top Left Organic Flower */}
         <svg
           className="flower flower-top-left"
           viewBox="0 0 100 100"
@@ -35,14 +31,11 @@ export default function Home() {
           />
         </svg>
 
-        {/* Top Right Falling Petals */}
         <div className="petal petal-1">🌸</div>
         <div className="petal petal-2">🌸</div>
 
-        {/* Bottom Left Falling Petal */}
         <div className="petal petal-3">🌸</div>
 
-        {/* Bottom Right Line-art Leaf */}
         <svg
           className="flower flower-bottom-right"
           viewBox="0 0 100 100"
@@ -58,9 +51,7 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* Main Content Area */}
       <div className="home-container">
-        {/* Hero Section */}
         <header className="home-hero">
           <span className="hero-badge">
             ✨ Clear Your Mind, Organize Your Day
@@ -81,7 +72,6 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Features Grid Section */}
         <section className="features-section">
           <div className="feature-card">
             <div className="feature-icon">📝</div>
@@ -117,7 +107,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Trust/Footer Stats Section */}
         <footer className="home-stats-footer">
           <div className="stat-item">
             <strong>100%</strong>

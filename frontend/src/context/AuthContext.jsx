@@ -1,11 +1,8 @@
 import { createContext, useState, useContext } from "react";
 
-// 1. Buat context internal (tidak di-export agar Fast Refresh bekerja sempurna)
 const AuthContext = createContext(null);
 
-// 2. Provider Utama
 export const AuthProvider = ({ children }) => {
-  // Menggunakan fungsi inisialisasi agar pembacaan localStorage hanya berjalan 1 kali (efisien)
   const [token, setToken] = useState(() => {
     try {
       return localStorage.getItem("token") || null;
@@ -32,7 +29,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // State turunan yang reaktif dan aman dari bug tipe data
   const isAuthenticated =
     token !== null && token !== undefined && token !== "null";
 
@@ -43,12 +39,11 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// 3. Custom Hook yang bersih untuk di-consume komponen anak
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error(
-      "useAuth harus digunakan di dalam lingkup komponen AuthProvider"
+      "useAuth harus digunakan di dalam lingkup komponen AuthProvider",
     );
   }
   return context;
